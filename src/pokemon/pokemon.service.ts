@@ -50,8 +50,19 @@ async create(createPokemonDto: CreatePokemonDto) {
   }
   //MongoID
 
-  update(id: number, updatePokemonDto: UpdatePokemonDto) {
-    return `This action updates a #${id} pokemon`;
+
+    //Actualizar pokemon
+  async update(term: string, updatePokemonDto: UpdatePokemonDto) {
+
+    const pokemon= await this.findOne(term);
+    if (updatePokemonDto.name){
+      updatePokemonDto.name= updatePokemonDto.name.toLocaleLowerCase();
+      await pokemon.updateOne(updatePokemonDto)
+      return {...pokemon.toJSON(),...updatePokemonDto};
+    }
+
+
+    return `This action updates a #${term} pokemon`;
   }
 
   remove(id: number) {
