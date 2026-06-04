@@ -64,8 +64,9 @@ async create(createPokemonDto: CreatePokemonDto) {
   }
 
     //Para borrar Pokemones
-  remove(id: number) {
-    return `This action removes a #${id} pokemon`;
+  async remove(id: string) {
+    const pokemon = await this.findOne(id);
+    await pokemon.deleteOne();
   }
   private handleExceptions(error : any){ // metodo para capturar errores y lanzar el mensaje de error al usuario
       if ( error.code === 11000){
