@@ -4,6 +4,7 @@ import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Pokemon } from './entities/pokemon.entity';
 import { Model, isValidObjectId  } from 'mongoose';
+import { error } from 'console';
 
 @Injectable()
 export class PokemonService {
@@ -19,11 +20,7 @@ async create(createPokemonDto: CreatePokemonDto) {
   return pokemon;
 
   }catch (error){
-    if ( (error as any).code === 11000){
-      throw new BadRequestException(`Pokemon exists in db ${JSON.stringify((error as any).keyValue)}`);
-    }
-    console.log(error);
-    throw new InternalServerErrorException(`Can't create Pokemon - Check server logs`)
+    this.handleExceptions(error);
   }
 }
   findAll() {
@@ -57,15 +54,25 @@ async create(createPokemonDto: CreatePokemonDto) {
     const pokemon= await this.findOne(term);
     if (updatePokemonDto.name){
       updatePokemonDto.name= updatePokemonDto.name.toLocaleLowerCase();
+    } try{
       await pokemon.updateOne(updatePokemonDto)
       return {...pokemon.toJSON(),...updatePokemonDto};
-    }
-
-
-    return `This action updates a #${term} pokemon`;
+    } catch (error: any){ //logica para capturar errores pero llamada a travez del handleExceptions
+        this.handleExceptions(error);
+      }
+      return `This action updates a #${term} pokemon`;
   }
 
+    //Para borrar Pokemones
   remove(id: number) {
     return `This action removes a #${id} pokemon`;
   }
+  private handleExceptions(error : any){ // metodo para capturar errores y lanzar el mensaje de error al usuario
+      if ( error.code === 11000){
+        throw new BadRequestException (`Can't Update, this register exists in db ${JSON.stringify(error.keyValue)}`)
+      }
+      console.log(error);
+      throw new InternalServerErrorException(`Can't create Pokemon - Check server logs`)
+  }
+
 }
