@@ -25,4 +25,4 @@ docker-compose down
 # Stack usado
 * Mongo DB
 * Docker 
-* Nest Js
+* Nest Js// Watcher test - lun., 15 de jun. de 2026 11:02:33 a. m.
