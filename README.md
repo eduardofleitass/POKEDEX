@@ -26,3 +26,4 @@ docker-compose down
 * Mongo DB
 * Docker 
 * Nest Js// Watcher test - lun., 15 de jun. de 2026 11:02:33 a. m.
+// Watcher test 2 - lun., 15 de jun. de 2026 11:03:26 a. m.
