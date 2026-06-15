@@ -147,5 +147,5 @@ src/
 
 ## Autor
 
-- **Eduardo Fleitas**
+- **Eduardo Damián Fleitas Leguizamón**
 
