@@ -1,4 +1,3 @@
-markdown
 POKEDEX API
 
 API REST para gestionar una Pokédex, desarrollada con NestJS, MongoDB y Docker. Permite crear, consultar, actualizar y eliminar registros de Pokémon con validación de datos y arquitectura modular.
